@@ -1,6 +1,18 @@
 <div class="container">
-  <h1>Courses</h1>
+  <h1>Courses</h1>  <br>
 
+  <div class="form-group row">
+
+  <label class="col-sm-2 col-from-label">
+    Filter by
+  </label>
+
+  <div class="col-sm-10">
+
+    <input [(ngModel)]="filter" class="form-control">
+
+
+  </div>
   <table class="table table-striped">
   <thead><tr>
   <th>Image</th>
@@ -13,14 +25,15 @@
   </tr>
   </thead>
   <tr>
-<tr *ngFor="let course of courses">
+<tr *ngFor="let course of filteredCourses">
   <td><img src="{{course.imageUrl}}" height="42" width="42"></td>
   <td>{{course.name}}</td>
   <td>U$ {{course.price}}</td>
   <td>{{course.duration}} minutes</td>
   <td>{{course.releaseDate}}</td>
-  <td>{{course.rating}}</td>
+  <td><app-star [rating]="course.rating"></app-star></td>
   <td></td>
 </tr>
 </table>
 </div>
+  </div>
