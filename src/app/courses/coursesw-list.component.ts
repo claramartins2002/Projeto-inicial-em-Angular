@@ -1,35 +1,32 @@
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import {Course} from './course';
+import {CourseService} from './course.service';
+
 @Component({
   selector: 'app-courses-list',
   templateUrl: 'course-list.component.html'
 })
 export class CourseListComponent implements OnInit {
+filteredCourses: Course[] = [];
    courses: Course[] = [];
+  filterBy: string;
+constructor(private courseService: CourseService) {
 
+}
    ngOnInit(): void {
-   this.courses = [{
+this.courses = this.courseService.retrieveAll();
+   this.filteredCourses = this.courses;
 
-   id: 1,
-   name: 'Angular: Forms',
-   imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png',
-   price: 99.90,
-   duration: 120,
-   rating: 5.007,
-   releaseDate: 'December, 30, 2021'
-   },
-   {
-      id: 2,
-      name: 'Angular: Components',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png',
-      price: 79.90,
-      duration: 80,
-      rating: 5.007,
-      releaseDate: 'December, 30, 2021'
+   }
 
-      }]
+   set filter(value: string) {
+   this.filterBy = value;
+   this.filteredCourses = this.courses.filter((course: Course) => course.name.toLocaleLowerCase().indexOf(this.filterBy.toLocaleLowerCase()) > -1);
 
+   }
+   get value(){
+   return this.filterBy;
    }
 
 }
