@@ -8,6 +8,17 @@ export class CourseService {
 retrieveAll(): Course[]{
 return courses;}
 
+retrieveById(id: number) :Course {
+return courses.find((courseItereator: Course) => courseItereator.id ===id)!;
+}
+
+save(course: Course) : void {
+if(course.id) {
+const index = courses.findIndex((courseItereator: Course ) => courseItereator.id === course.id);
+courses[index] = course;
+}
+
+}
 }
 
 var courses : Course[] = [
